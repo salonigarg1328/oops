@@ -1,0 +1,36 @@
+#include<iostream>
+using namespace std;
+int spsum(int arr[],int j,int size){
+    int sum=j; //starting counting from index j
+    int k=1;    // how many elements added to sum at each iteration
+    for(int i=j;i<size;i++){
+        if(sum+k > size){  //it check if adding a no to sum would excedd than size
+        break;}
+        sum+=k;
+        k++;   //if doesn't increase k  
+    }
+int adder=0;
+for(int i=j;i<sum;i++){
+    adder+=arr[i];   //calculate actual of elements whose banches has made
+} 
+return adder;
+}
+
+int main(){
+    int n,biggest=0;
+cout<<"enter size of array: ";
+cin>>n;
+int arr[n];
+cout<<"enter elements of array:";
+for(int i=0;i<n;i++){
+    cin>>arr[i];
+}
+for(int i=0;i<n;i++){
+    int sum=spsum(arr,i,n);
+    if(sum>biggest){
+        biggest=sum;
+    }
+}
+cout<<biggest<<endl;
+return 0;
+}
