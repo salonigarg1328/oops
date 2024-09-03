@@ -1,0 +1,61 @@
+#include<iostream>
+using namespace std;
+class bank{
+private:
+ string name;
+ int actnumber;
+ string typeofact;
+ float balance;
+ public:
+  void setdetails(string nm,string typacount,float blance,int accountno)  {
+  this->name=nm;
+  this->actnumber=accountno;
+  this->typeofact=typacount;
+  this->balance=blance;
+       }
+
+  void deposit(float dammount){
+    balance=balance+dammount;
+  } 
+   void withdrawl(float wammount){
+    if(wammount>balance){
+        cout<<"insufficient ammount";
+    }
+    else{
+        balance=balance-wammount;
+    }
+   }
+
+
+ void show(){
+    cout<<"details are:"<<endl;;
+    cout<<"name of customer:"<<name<<endl;
+    cout<<"account number is"<<actnumber<<endl;
+    cout<<"ammount in account "<<balance<<endl;
+ }
+};
+
+int main(){
+    string nm,typaccount;
+    int accountno;
+    float balance;
+    cout<<"enter name";
+    cin>>nm;
+    cout<<"enter type of account";
+    cin>>typaccount;
+    cout<<"enter account number";
+    cin>>accountno;
+    cout<<"enter balance";
+    cin>>balance;
+    bank c;
+    float dammount,wammount;
+    cout<<"enter amount to be deposit";
+    cin>>dammount;
+    cout<<"enter ammount to be withdrawl";
+    cin>>wammount;
+    c.setdetails(nm,typaccount,balance,accountno);
+    c.deposit(dammount);
+    c.withdrawl(wammount);
+    c.show();
+    return 0;
+    }
