@@ -8,19 +8,13 @@ class bill{
    public:
    
    void setName(string name){
-   this->name=name;   }
-    string getName(){
-        return name;
-    }
-   void setUnits(int units){
-       this->units=units;
-   }
-   float getUnits(){
-    return units;
-   }
-   
-
-   int billcalculate(){
+   this->name=name;
+     }
+    void setUnits(float units){
+   this->units=units;
+     }
+    
+     int billcalculate(){
     charge=0;
     if(units<=100){
      charge=(0.60*units)+50;
@@ -39,9 +33,9 @@ class bill{
    }
    
 void detailsofbill(){
-     cout<<name<<endl;
-     cout<<units<<endl;
-     cout<<charge;
+     cout<<"Name is"<<name<<endl;
+     cout<<"Units are"<<units<<endl;
+     cout<<"Charge"<<charge;
    }
    
 };
@@ -51,27 +45,23 @@ int main(){
     cin>>size;  
      string name;
      int units;
+      bill d1[size];
     for(int i=0;i<size;i++){
     cout<<"enter name"<<i+1;
     cin>>name;
-    cout<<"enter units are used"<<endl;
-    cin>>units; }
-     bill d1[size];
-     for(int i=0;i<size;i++){
-     d1[i].setName(name);
-      }
-
- for(int i=0;i<size;i++){
-    d1[i].setUnits(units);
-     }
- 
-    
+    cout<<"enter units are used";
+    cin>>units; 
+    d1[i].setName(name);
+     d1[i].setUnits(units);
+    }
    for(int i=0;i<size;i++){
         d1[i].billcalculate();
-     }
-     for(int i=0;i<size;i++){
         d1[i].detailsofbill();
-     } 
+        cout<<endl;
+     }
+     
 return 0;
 }   
+
+
 
