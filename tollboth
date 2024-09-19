@@ -1,0 +1,52 @@
+#include<iostream>
+using namespace std;
+class tollbooth{
+  private:
+  unsigned int totalcar;
+  double totalcash;
+  public:
+  tollbooth(unsigned int totalcar,double totalcash){
+    this->totalcar=totalcar;
+    this->totalcash=totalcash;
+  }
+  int payingcar(){
+   totalcar++;
+   totalcash+=0.5;
+    return totalcar,totalcash;
+  }
+   int nonpaycar(){
+    totalcar++;
+    return totalcar;
+  }
+  void show(){
+    cout<<"number of cars:"<<totalcar<<endl;
+    cout<<"car ammount:"<<totalcash;
+  }
+};
+
+int main(){
+  tollbooth t(0,0);
+  cout<<"enter your choice as P for paying car"<<endl;
+  cout<<"N for non paying car"<<endl;
+  cout<<" 'E' for exit"<<endl;
+  while(1){
+  char choice;
+  cin>>choice;
+  if(choice=='P'|| choice=='p'){
+    t.payingcar();
+    cout<<"paying car counted"<<endl;
+  }
+  else if(choice=='N'|| choice=='n'){
+    t.nonpaycar();
+    cout<<"non pay car counted";
+  }
+  else if(choice=='E'){
+    t.show();
+    break;
+  }
+  else{
+    cout<<" invalid input. enter valid choice as p,n,esc"<<endl;
+  } }
+
+  return 0;
+}
