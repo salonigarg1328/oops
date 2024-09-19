@@ -1,0 +1,28 @@
+#include<iostream>
+using namespace std;
+class area{
+   
+    public:
+   int calculate_area(int side){
+        return side*side;
+         }
+
+int calculate_area(int side1,int side2){
+    return side1*side2;
+    
+}
+int calculate_area(float base,float height){
+    return (base*height)/2;
+}
+
+    
+};
+
+int main(){
+  area a1;
+  cout<<a1.calculate_area(20)<<endl;
+  cout<<a1.calculate_area(10,5)<<endl;
+ cout<<  a1.calculate_area(10.0f,5.0f)<<endl;
+  
+}
+
