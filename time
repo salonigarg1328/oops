@@ -1,0 +1,59 @@
+#include<iostream>
+using namespace std;
+class time{
+    private:
+    int hours;
+    int minutes;
+    int seconds;
+    public:
+    time(){
+       hours=0;
+       minutes=0;
+       seconds=0;
+    }
+    time(int hours,int minutes,int seconds){
+        this->hours=hours;
+        this->minutes=minutes;
+        this->seconds=seconds;
+    }
+
+    time add(time &t1,time &t2){
+        if (t1.seconds>=60) {
+            t1.minutes+=t1.seconds/60;
+            t1.seconds%=60;
+        }
+        if (t1.minutes>=60) {
+            t1.hours+=t1.minutes/60;
+            t1.minutes%=60;
+        } time result;
+         result.seconds=t1.seconds+t2.seconds;
+         result.minutes=t1.minutes+t2.minutes+result.seconds/60;
+         result.hours=t1.hours+t2.hours+result.minutes/60;
+        
+        result.seconds %=60;
+        result.minutes %=60;
+    
+         return result;
+
+    }
+void display(){
+    cout<<hours<<":";
+    cout<<minutes<<":" ;
+    cout<<seconds<<endl;
+} 
+
+};
+
+int main(){
+    time t1(14,43,62);
+    time t2(11,42,63);
+    time result=result.add(t1,t2);
+   cout<<"time 1:";
+   t1.display();
+   cout<<"time 2:";
+   t2.display();
+   cout<<"result time:";
+   result.display();
+    
+    return 0;
+}
