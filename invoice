@@ -1,0 +1,79 @@
+#include<iostream>
+using namespace std;
+class invoice{
+ string partnumber;
+ string part_des;
+ int qty_item;
+ double price_per_item;
+ public:
+ invoice(){
+    partnumber="no part no.";
+    part_des=" no part description";
+    qty_item=0;
+    price_per_item=0.0;
+}
+    void setPartNumber(string partnumber){
+      this->partnumber=partnumber;
+   }
+    void setPartdescription(string part_des){
+    this->part_des=part_des;
+     }
+    void setQtyitem(int qty_item){
+        if(qty_item<0)
+        this->qty_item=0;
+        else
+    this->qty_item=qty_item; 
+    }
+void setPriceperitem(double price_per_item){
+    if(price_per_item<0)
+     this->price_per_item=0;
+     else
+    this->price_per_item=price_per_item; 
+    }
+ 
+ string getpartnumber(){
+    return partnumber;
+ }
+ string getpartdescription(){
+    return part_des;
+ }
+ int getqtyitem(){
+    return qty_item;
+ }
+ double getpriceperitem(){
+    return price_per_item;
+ }
+
+ double getinvoiceamount(){
+    
+    return qty_item*price_per_item;
+ }
+};
+
+int main(){
+  string partnumber;
+ string part_des;
+ int qty_item;
+ double price_per_item;
+ cout<<"enter partnumber";    
+ cin>>partnumber;
+ cout<<"enter partdescription";
+ cin>>part_des;
+ cout<<"enter quanty";
+ cin>>qty_item;
+ cout<<"enter price per item";
+ cin>>price_per_item;
+  invoice v;
+  v.setPartNumber(partnumber);
+  v.setPartdescription(part_des);
+  v.setQtyitem(qty_item);
+  v.setPriceperitem(price_per_item);
+  cout<<"details are:";
+  cout<<"part number"<<v.getpartnumber()<<endl;
+  cout<<"part description"<<v.getpartdescription()<<endl;
+  cout<<" qty of item"<<v.getqtyitem()<<endl;
+  cout<<" price per item"<<v.getpriceperitem()<<endl;
+  cout<<"total ammount"<<v.getinvoiceamount();
+  return 0;
+
+}
