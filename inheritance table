@@ -14,7 +14,7 @@ class base{
     cout<<"all base class members:"<<endl;
     cout<<"private x="<<x<<"\t";
     cout<<"protected y="<<y<<"\t";
-    cout<<"private z="<<z<<endl;
+    cout<<"public z="<<z<<endl;
   }
 };
 class dpublic:public base{
