@@ -1,0 +1,177 @@
+#include <iostream>
+#include <vector>
+#include <stdexcept>
+using namespace std;
+
+class InsufficientBalanceException : public exception {
+public:
+    const char* what() const noexcept override {
+        return "Insufficient balance!";
+    }
+};
+
+class AccountNotFoundException : public exception {
+public:
+    const char* what() const noexcept override {
+        return "Account not found!";
+    }
+};
+
+// Account class to encapsulate user data
+class Account {
+public:
+    string userId;
+    int password;
+    float balance;
+    int accountNumber;
+
+    Account(string userId, int password, float balance, int accountNumber)
+        : userId(userId), password(password), balance(balance), accountNumber(accountNumber) {}
+};
+
+class Bank {
+private:
+    vector<Account> accounts; // Store accounts as objects
+
+public:
+    Bank() {}
+
+    bool login(string id, int password, int accNo) {
+        for (const auto& account : accounts) {
+            if (account.accountNumber == accNo && account.userId == id && account.password == password) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void createAccount() {
+        string userId;
+        int pass, confirmPass;
+        float initialBalance;
+
+        cout << "Create your user ID: ";
+        cin >> userId;
+
+        cout << "Create your password: ";
+        cin >> pass;
+
+        cout << "Confirm your password: ";
+        cin >> confirmPass;
+
+        if (pass != confirmPass) {
+            cout << "Passwords do not match! Account creation failed." << endl;
+            return;
+        }
+
+        cout << "Enter initial balance: ";
+        cin >> initialBalance;
+
+        int accNo = accounts.size(); // Account number based on current size
+
+        accounts.push_back(Account(userId, pass, initialBalance, accNo));
+
+        cout << "Account created successfully! Your account number is: " << accNo << endl;
+    }
+
+    float checkBalance(int accNo) {
+        for (const auto& account : accounts) {
+            if (account.accountNumber == accNo) {
+                return account.balance;
+            }
+        }
+        throw AccountNotFoundException();
+    }
+
+    void transfer(int sourceAccNo, int destAccNo, float amount) {
+        Account* source = nullptr;
+        Account* dest = nullptr;
+
+        for (auto& account : accounts) {
+            if (account.accountNumber == sourceAccNo) source = &account;
+            if (account.accountNumber == destAccNo) dest = &account;
+        }
+
+        if (!source || !dest) {
+            cout << AccountNotFoundException().what() << endl;
+            return;
+        }
+
+        if (amount > source->balance) {
+            cout << InsufficientBalanceException().what() << endl;
+            return;
+        }
+
+        source->balance -= amount;
+        dest->balance += amount;
+        cout << "Transfer successful! Your new balance: " << source->balance << endl;
+    }
+};
+
+int main() {
+    Bank bank;
+    int choice;
+
+    do {
+        cout << "Enter your choice: 1.Create Account, 2.Login, 3.Exit" << endl;
+        cin >> choice;
+
+        if (choice == 1) {
+            cout << "Welcome to the Bank!" << endl;
+            bank.createAccount();
+        } 
+        else if (choice == 2) {
+            string userId;
+            int pass, accNo;
+            
+            cout << "Enter your user ID: ";
+            cin >> userId;
+            cout << "Enter your password: ";
+            cin >> pass;
+            cout << "Enter your account number: ";
+            cin >> accNo;
+
+            if (bank.login(userId, pass, accNo)) {
+                cout << "Login successful!" << endl;
+                int action;
+                
+                do {
+                    cout << "\nChoose an action: 1.Check balance, 2.Transfer money, 3.Logout" << endl;
+                    cin >> action;
+
+                    switch (action) {
+                        case 1:
+                            cout << "Your current balance is: " << bank.checkBalance(accNo) << endl;
+                            break;
+                        case 2: {
+                            int destAccNo;
+                            float amount;
+                            cout << "Enter the destination account number: ";
+                            cin >> destAccNo;
+                            cout << "Enter the amount to transfer: ";
+                            cin >> amount;
+                            bank.transfer(accNo, destAccNo, amount);
+                            break;
+                        }
+                        case 3:
+                            cout << "Logging out..." << endl;
+                            break;
+                        default:
+                            cout << "Invalid choice! Try again." << endl;
+                    }
+                } while (action != 3);
+            } else {
+                cout << "Invalid user ID, password, or account number! Login failed." << endl;
+            }
+        } 
+        else if (choice == 3) {
+            cout << "Exiting program. Thank you for using the bank!" << endl;
+        } 
+        else {
+            cout << "Invalid choice! Try again." << endl;
+        }
+
+    } while (choice != 3);
+
+    return 0;
+}
